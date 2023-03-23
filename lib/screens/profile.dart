@@ -23,17 +23,44 @@ class _ProfileState extends State<Profile> {
       home: Scaffold(
         body: Center(
           child: Container(
-            margin: EdgeInsets.symmetric(horizontal: size.width * 0.25),
+            margin: EdgeInsets.symmetric(
+              horizontal: size.width * 0.25,
+              vertical: size.height * 0.34,
+            ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Image.network("${FirebaseAuth.instance.currentUser!.photoURL}"),
-                Text("${FirebaseAuth.instance.currentUser!.displayName}"),
-                Text("${FirebaseAuth.instance.currentUser!.email}"),
+                CircleAvatar(
+                  radius: size.height * 0.052,
+                  backgroundColor: Colors.purple,
+                  child: CircleAvatar(
+                    radius: size.height * 0.05,
+                    backgroundImage: NetworkImage(
+                        "${FirebaseAuth.instance.currentUser!.photoURL}"),
+                  ),
+                ),
+                const Spacer(),
+                Text(
+                  "${FirebaseAuth.instance.currentUser!.displayName}",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: size.height * 0.02,
+                  ),
+                ),
+                const Spacer(),
+                Text(
+                  "${FirebaseAuth.instance.currentUser!.email}",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: size.height * 0.02,
+                  ),
+                ),
+                const Spacer(),
                 ElevatedButton(
                     onPressed: () async {
                       await FirebaseServices().googleSignout();
+                      // ignore: use_build_context_synchronously
                       Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -41,9 +68,9 @@ class _ProfileState extends State<Profile> {
                     },
                     child: Row(
                       children: const [
-                        Icon(Icons.send),
-                        Spacer(),
                         Text("Signout"),
+                        Spacer(),
+                        Icon(Icons.send),
                       ],
                     )),
               ],

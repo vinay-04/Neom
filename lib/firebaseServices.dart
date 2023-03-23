@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, empty_catches
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -18,9 +20,7 @@ class FirebaseServices {
             idToken: googleSignInAuthentication.idToken);
         await auth.signInWithCredential(authCredential);
       }
-    } catch (e) {
-      print(e);
-    }
+    } catch (e) {}
   }
 
   googleSignout() async {

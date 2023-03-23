@@ -10,6 +10,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  bool _buttonPressed = false;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -23,24 +24,35 @@ class _LoginScreenState extends State<LoginScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              ElevatedButton(
-                onPressed: () async {
-                  await FirebaseServices().googleSignin();
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => const Profile()));
-                },
-                child: Row(
-                  children: [
-                    Image.asset(
-                      'assets/googlelogo.png',
-                      width: size.width * 0.07,
-                      height: size.height * 0.07,
+              _buttonPressed
+                  ? const CircularProgressIndicator(
+                      color: Colors.purple,
+                      strokeWidth: 4,
+                    )
+                  : ElevatedButton(
+                      onPressed: () async {
+                        setState(() {
+                          _buttonPressed = true;
+                        });
+                        await FirebaseServices().googleSignin();
+                        // ignore: use_build_context_synchronously
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const Profile()));
+                      },
+                      child: Row(
+                        children: [
+                          Image.asset(
+                            'assets/googlelogo.png',
+                            width: size.width * 0.07,
+                            height: size.height * 0.07,
+                          ),
+                          // const Spacer(),
+                          const Text("Signin with Google")
+                        ],
+                      ),
                     ),
-                    // const Spacer(),
-                    const Text("Signin with Google")
-                  ],
-                ),
-              ),
             ],
           ),
           // ),

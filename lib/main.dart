@@ -6,7 +6,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(
-    MaterialApp(
+    const MaterialApp(
       debugShowCheckedModeBanner: false,
       home: MyApp(),
     ),
@@ -21,12 +21,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'googleAuth',
+      title: 'Neom',
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.amberAccent,
         primarySwatch: Colors.purple,
       ),
-      home: LoginScreen(),
+      home: const LoginScreen(),
     );
   }
 }
